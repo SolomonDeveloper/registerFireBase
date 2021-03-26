@@ -81,19 +81,21 @@ db.collection(turma).doc("novoAluno").update({
 const turma = "turmaA";
 const db = firebase.firestore();
 
-function register(){
+function register() {
     const username = document.getElementById("name").value;
     const old = document.getElementById("age").value;
-
     const country = document.getElementById("country").value;
+    const d = new Date();
 
     db.collection(turma).add({
         nome: username,
         age: parseInt(old),
-        hometown: country
-    }).then(prof =>{
-        alert(`username ${prof} registered successfully`);
-    }).catch(error =>{
+        hometown: country,
+        data: d.toDateString(),
+
+    }).then(() => {
+        alert('Usuário registrado com sucesso!');
+    }).catch(error => {
         alert(error);
     })
 }
