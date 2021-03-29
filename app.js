@@ -10,96 +10,116 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-
-/* métodos úteis para lembrar:
-1- objeto.firestore() = retorna a referência para o banco de dados.
-2- objeto.collection(colecao) = retorna qual a coleção será utilizada no Cloud FireStore.
-3- objeto.collection(colecao).doc() = o método doc retorna o id do documento dentro da coleção.
-*/
-
-
-//primeiro documento(aluno)
-/*
-db.collection("turmaA").get()
-    .then(snapshot => {
-        snapshot.forEach(doc => {
-            let aluno = doc.data();
-            console.log(aluno.nome)
-            console.log(doc.data());
-        });
-    });
-
-//outro documento utilizado para pegar o documento específico(aluno)
-const dbRef = db.collection("turmaA").doc("DcnYt0JrP9hyjtbcQrj3");
-dbRef.get()
-        .then(doc => {
-            let nome = doc.data();
-            console.log(nome.nome);
-        })
-
-
-db.collection("turmaA").where("notas.nota1", ">", 6).get()
-.then(snapshot =>{
-    snapshot.forEach(doc =>{
-        let aluno = doc.data();
-        console.log(aluno.nome)
-    })
-});*/
-
-
-//const turma = "turmaA";
-//const db = firebase.firestore();
-/*
-db.collection(turma).add({
-    nome: "Marcos",
-    sobrenome: "Scheffer",
-    notas: {nota1: 9.6, nota2: 7.5}
-}).then(doc =>{
-    console.log(`Documento inserido com sucesso ${doc}`);
-}).catch(err =>{
-    console.log(err);
-})
-*/
-
-
-//método add() - adiciona um novo documento
-//método set() - Altera as propriedades do documento(cuidado ao usar para nao excluir tudo)
-//método update() - Faz um update apenas no que foi alterado
-/*
-db.collection(turma).doc("novoAluno").update({
-    nome: "Luan",
-    sobrenome: "Gastón",
-    notas: {nota1: 9.2, nota2: 7.9}
-}).then(() =>{
-    console.log(`Documento inserido com sucesso`);
-}).catch(err =>{
-    console.log(err);
-});
-
-*/
-
+//initialize Cloud Store
 const turma = "turmaA";
 const db = firebase.firestore();
 
-function register() {
-    const username = document.getElementById("name").value;
-    const old = document.getElementById("age").value;
-    const country = document.getElementById("country").value;
-    const d = new Date();
+//variables for register user
+const idReg = document.getElementById("idReg");
+const usernameReg = document.getElementById("name");
+const oldReg = document.getElementById("age");
+const countryReg = document.getElementById("country");
+const d = new Date();
 
-    db.collection(turma).add({
-        nome: username,
-        age: parseInt(old),
-        hometown: country,
-        data: d.toDateString(),
+function registerUser() {
+    const nameVal = usernameReg.value;
+    const oldVal = oldReg.value;
+    const countryVal = countryReg.value;
+
+    db.collection(turma).doc(idReg.value).set({
+        nome: nameVal,
+        age: parseInt(oldVal),
+        hometown: countryVal,
+        data: d.toString(),
 
     }).then(() => {
         alert('Usuário registrado com sucesso!');
     }).catch(error => {
         alert(error);
     })
-}
-const submit = document.getElementById("send");
+};
 
-submit.addEventListener('click', register);
+//variable for register Window
+const btnReg = document.getElementById("register-user");
+const btnPrincipal = document.getElementById("box-principal");
+const regWindow = document.getElementById("registerWindow");
+
+//register Window
+function registerWindow(){ 
+    btnReg.addEventListener('click', () =>{
+        btnPrincipal.style.display = "none";
+        regWindow.style.display = "flex";
+    }) 
+}
+registerWindow();
+
+//send data to cloudstore firebase 
+const submitReg = document.getElementById("sendReg");
+submitReg.addEventListener('click', registerUser);
+
+//variable to edit user
+const idEdt = document.getElementById("idEdt");
+const nameEdt = document.getElementById("nameEdt");
+const ageEdt = document.getElementById("ageEdt");
+const countryEdt = document.getElementById("countryEdt");
+
+function editUser(){
+    db.collection(turma).doc(idEdt.value).update({
+        nome: nameEdt.value,
+        age: ageEdt.value, 
+        hometown: countryEdt.value, 
+         data: d.toString(),
+    }).then(() =>{
+        alert("Informações do aluno foram alteradas");
+    }).catch(err =>{
+        alert(`Nenhum documento ID de encontrado \n\n ${err}`);      
+    });  
+}
+
+//variable for edit window
+const btnEdit = document.getElementById("edit-user");
+const edtWindow = document.getElementById("editWindow");
+
+function editWindow(){
+    btnEdit.addEventListener('click', () =>{
+        btnPrincipal.style.display = "none";
+        edtWindow.style.display = "flex";
+    })      
+};
+editWindow();
+
+//send data to cloudstore firebase 
+const submitEdt = document.getElementById("sendEdt");
+submitEdt.addEventListener('click', editUser);
+
+
+//variables for remove window
+const idDel = document.getElementById("idDel");
+
+function removeUser(){
+    db.collection(turma).doc(idDel.value).delete().then(() =>{  
+        alert("documento removido com sucesso!");
+    }).catch(err =>{
+        alert(`erro ao remover o documento\n\n ${err}`);
+    })
+}
+
+//variable to delete document
+const btnRemove = document.getElementById("delete-user");
+const removeWindow = document.getElementById("deleteWindow");
+
+function deleteWindow(){
+    btnRemove.addEventListener('click', ()=>{
+        btnPrincipal.style.display = "none";    
+        removeWindow.style.display = "flex";
+    })
+}
+deleteWindow();
+
+const btnDel = document.getElementById("sendDel");
+btnDel.addEventListener('click', removeUser);
+
+
+
+
 

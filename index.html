@@ -5,19 +5,45 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/all.min.css">
     <title>Registrar-se</title>
 </head>
 
 <body>
-    <div id="content">
-        <h1>Register</h1>
-        <input type="text" name="" class="field" id="name" placeholder="Digite seu nome completo" required>
-        <input type="text" name="" class="field" id="age" placeholder="Digite sua idade">
-        <input type="text" name="" class="field" id="country" placeholder="Digite o seu país de origem">
-        <input type="submit" id="send" value="Enviar">
+    <div id="box-principal">
+        <a href="#" class="box"><button id="register-user">Register user</button></a>
+        <a href="#" class="box"><button id="edit-user">Edit user</button></a>
+        <a href="#" class="box"><button id="delete-user">Delete user</button></a>
     </div>
-    
+
+    <div id="registerWindow">
+        <h1>Register user</h1>
+        <a href=""><i class="fas fa-arrow-circle-left"></i></a>
+        <input type="text" name="id" class="field" id="idReg" placeholder="Digite um ID para seu perfil" required>
+        <input type="text" name="name" class="field" id="name" placeholder="Digite seu nome completo" required>
+        <input type="text" name="age" class="field" id="age" placeholder="Digite sua idade" required>
+        <input type="text" name="country" class="field" id="country" placeholder="Digite o seu país de origem" required>
+        <input type="submit" id="sendReg" value="Enviar">
+    </div>
+
+    <div id="editWindow">
+        <h1>Edit user</h1>
+        <a href=""><i class="fas fa-arrow-circle-left"></i></a>
+        <input type="text" name="id" class="field" id="idEdt" placeholder="Digite seu ID" required>
+        <input type="text" name="name" class="field" id="nameEdt" placeholder="Nome" required>
+        <input type="text" name="age" class="field" id="ageEdt" placeholder="Digite sua idade" required>
+        <input type="text" name="country" class="field" id="countryEdt" placeholder="Digite o seu país de origem" required>
+        <input type="submit" id="sendEdt" value="Enviar">
+    </div>
+
+    <div id="deleteWindow">
+        <h1>Delete user</h1>
+        <a href=""><i class="fas fa-arrow-circle-left"></i></a>
+        <input type="text" name="id" class="field" id="idDel" placeholder="Digite seu ID" required>
+        <input type="submit" id="sendDel" value="Enviar">
+    </div>
+
     <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase.js"></script>
     <script src="app.js"></script>
 </body>
