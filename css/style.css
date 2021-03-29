@@ -123,5 +123,9 @@ input::placeholder{
         padding: 0;
         height: 600px;
     }
+
+    #register-user,#edit-user,#delete-user{
+        height: 150px;
+    }
 }
 
