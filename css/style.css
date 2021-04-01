@@ -110,10 +110,22 @@ input::placeholder{
     transition: 0.5s;
 }
 
+.popup{
+    width: 500px;
+    text-align: center;
+    padding-top: 40px;
+    position: absolute;
+    display: none;
+    top: 10%;
+    height: 100px;
+    background-color: #000;
+    opacity: 0.9;
+    color: white;
+}
+
 #sendReg:hover, #sendEdt:hover, #sendDel:hover{
     background: rgb(51, 108, 161);
 }
-
 
 @media screen and (max-width: 600px){
     #box-principal{

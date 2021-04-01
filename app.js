@@ -31,11 +31,10 @@ function registerUser() {
         age: parseInt(oldVal),
         hometown: countryVal,
         data: d.toString(),
-
     }).then(() => {
-        alert('Usuário registrado com sucesso!');
+        $(".popup").html("<p> Usuário cadastrado com sucesso!").fadeIn("slow").fadeOut(2000);
     }).catch(error => {
-        alert(error);
+        console.log(error);
     })
 };
 
@@ -44,18 +43,20 @@ const btnReg = document.getElementById("register-user");
 const btnPrincipal = document.getElementById("box-principal");
 const regWindow = document.getElementById("registerWindow");
 
-//register Window
-function registerWindow(){ 
-    btnReg.addEventListener('click', () =>{
-        btnPrincipal.style.display = "none";
-        regWindow.style.display = "flex";
-    }) 
-}
-registerWindow();
+$("#register-user").click(() => {
+    $("#box-principal").hide();
+    $("#registerWindow").fadeIn();
+    regWindow.style.display = "flex";
+});
 
 //send data to cloudstore firebase 
 const submitReg = document.getElementById("sendReg");
 submitReg.addEventListener('click', registerUser);
+
+$(".arrow").click(() => {
+    $("#box-principal").show()
+    $("#registerWindow").hide();
+})
 
 //variable to edit user
 const idEdt = document.getElementById("idEdt");
@@ -63,61 +64,67 @@ const nameEdt = document.getElementById("nameEdt");
 const ageEdt = document.getElementById("ageEdt");
 const countryEdt = document.getElementById("countryEdt");
 
-function editUser(){
+function editUser() {
     db.collection(turma).doc(idEdt.value).update({
         nome: nameEdt.value,
-        age: ageEdt.value, 
-        hometown: countryEdt.value, 
-         data: d.toString(),
-    }).then(() =>{
-        alert("Informações do aluno foram alteradas");
-    }).catch(err =>{
-        alert(`Nenhum documento ID de encontrado \n\n ${err}`);      
-    });  
-}
+        age: ageEdt.value,
+        hometown: countryEdt.value,
+        data: d.toString(),
+    }).then(() => {
+        $(".popup").html("<p> Informações alteradas com sucesso!").fadeIn("slow").fadeOut(2000);
+    }).catch(err => {
+        alert(`Nenhum documento ID de encontrado \n\n ${err}`);
+    });
+};
 
 //variable for edit window
 const btnEdit = document.getElementById("edit-user");
 const edtWindow = document.getElementById("editWindow");
 
-function editWindow(){
-    btnEdit.addEventListener('click', () =>{
-        btnPrincipal.style.display = "none";
-        edtWindow.style.display = "flex";
-    })      
-};
-editWindow();
+$("#edit-user").click(() => {
+    $("#box-principal").hide();
+    $("#editWindow").fadeIn();
+    edtWindow.style.display = "flex";
+});
 
 //send data to cloudstore firebase 
 const submitEdt = document.getElementById("sendEdt");
 submitEdt.addEventListener('click', editUser);
 
+$(".arrow").click(() => {
+    $("#box-principal").show();
+    $("#editWindow").hide();
+})
 
 //variables for remove window
 const idDel = document.getElementById("idDel");
 
-function removeUser(){
-    db.collection(turma).doc(idDel.value).delete().then(() =>{  
-        alert("documento removido com sucesso!");
-    }).catch(err =>{
-        alert(`erro ao remover o documento\n\n ${err}`);
-    })
-}
+function removeUser() {
+    db.collection(turma).doc(idDel.value).delete().then(() => {
+        $(".popup").html("<p> Documento removido com sucesso!").fadeIn("slow").fadeOut(2000);
+    }).catch(err => {
+        alert(err);
+    });
+};
 
 //variable to delete document
 const btnRemove = document.getElementById("delete-user");
 const removeWindow = document.getElementById("deleteWindow");
 
-function deleteWindow(){
-    btnRemove.addEventListener('click', ()=>{
-        btnPrincipal.style.display = "none";    
-        removeWindow.style.display = "flex";
-    })
-}
-deleteWindow();
+$("#delete-user").click(() => {
+    $("#box-principal").hide();
+    $("#deleteWindow").fadeIn();
+    removeWindow.style.display = "flex";
+});
 
 const btnDel = document.getElementById("sendDel");
 btnDel.addEventListener('click', removeUser);
+
+$(".arrow").click(() => {
+    $("#box-principal").show();
+    $("#deleteWindow").hide();
+});
+
 
 
 
