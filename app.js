@@ -33,8 +33,8 @@ function registerUser() {
         data: d.toString(),
     }).then(() => {
         $(".popup").html("<p> Usuário cadastrado com sucesso!").fadeIn("slow").fadeOut(2000);
-    }).catch(error => {
-        console.log(error);
+    }).catch(err => {
+        alert(`Nada preenchido! \n\n ${err}`);
     })
 };
 
